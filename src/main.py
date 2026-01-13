@@ -160,6 +160,10 @@ class GitHubActionsVersionUpdater:
 
                     updated_action = f"{action_location}@{new_version}"
 
+                    if updated_action in self.user_config.ignore_actions:
+                        gha_utils.notice(f'Action "{updated_action}" in ignore list. Skipping')
+                        continue
+
                     if action != updated_action:
                         gha_utils.echo(f'Found new version for "{action_repository}"')
                         updated_item_markdown_set.add(
